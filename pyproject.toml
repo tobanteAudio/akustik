@@ -18,13 +18,13 @@ classifiers = [
 ]
 
 dependencies = [
-    "click>=8.1",
-    "matplotlib",
-    "numba",
-    "numpy",
-    "pandas",
-    "resampy",
-    "scipy",
+    "click>=8.1.7",
+    "matplotlib>=3.9.1",
+    "numba>=0.60.0",
+    "numpy>=2.0.1",
+    "pandas>=2.2.2",
+    "resampy>=0.4.3",
+    "scipy>=1.14.0",
 ]
 
 [project.urls]
@@ -41,9 +41,9 @@ akustik = "akustik.cli:main"
 [tool.setuptools.packages.find]
 where = ["src/python"]
 
-# [tool.pytest.ini_options]
-# minversion = "7.0"
-# addopts = ["-ra", "--strict-markers", "--strict-config"]
-# xfail_strict = true
-# filterwarnings = ["error"]
-# testpaths = ["test/*"]
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+xfail_strict = true
+filterwarnings = ["error"]
+testpaths = ["src/python/tests/*"]
