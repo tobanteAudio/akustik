@@ -25,6 +25,7 @@ dependencies = [
     "pandas>=2.2.2",
     "resampy>=0.4.3",
     "scipy>=1.14.0",
+    "sympy>=1.13.1",
 ]
 
 [project.urls]
