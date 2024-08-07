@@ -1,6 +1,11 @@
 import numpy as np
 
-from akustik.room.rectangular import frequency_spacing_index, room_mode, room_mode_kind
+from akustik.room.rectangular import (
+    frequency_spacing_index,
+    room_mode,
+    room_mode_kind,
+    preferred_dimensions
+)
 
 
 def test_frequency_spacing_index():
@@ -54,3 +59,32 @@ def test_room_mode_kind():
         assert room_mode_kind(i, 0, i) == "tangential"
 
         assert room_mode_kind(i, i, i) == "oblique"
+
+
+def test_preferred_dimensions():
+    L = 7
+
+    A = preferred_dimensions(L=L, ratio="A")
+    assert np.allclose(A[0], L)
+    assert np.allclose(A[1], 5.78512)
+    assert np.allclose(A[2], 4.82758)
+    assert np.allclose(float(A[0]/A[1]), 1.21)
+    assert np.allclose(float(A[0]/A[2]), 1.45)
+    assert np.allclose(float(A[1]/A[2]), 1.19834)
+
+    B = preferred_dimensions(L=L, ratio="B")
+    assert np.allclose(B[0], L)
+    assert np.allclose(B[1], 5.185185)
+    assert np.allclose(B[2], 3.70370)
+    assert np.allclose(float(B[0]/B[1]), 1.35)
+    assert np.allclose(float(B[0]/B[2]), 1.89)
+    assert np.allclose(float(B[1]/B[2]), 1.40)
+
+
+    B = preferred_dimensions(A=40, ratio="B")
+    assert np.allclose(B[0], 7.34846)
+    assert np.allclose(B[1], 5.44331)
+    assert np.allclose(B[2], 3.88807)
+    assert np.allclose(float(B[0]/B[1]), 1.35)
+    assert np.allclose(float(B[0]/B[2]), 1.89)
+    assert np.allclose(float(B[1]/B[2]), 1.40)

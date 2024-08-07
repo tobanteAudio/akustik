@@ -1,8 +1,9 @@
 import numpy as np
+import sympy as sp
+from sympy.abc import x, y, z
 
 
-def room_mode(L, W, H, m, n, p):
-    c = 343
+def room_mode(L, W, H, m, n, p, c=343):
     return c*0.5*np.sqrt((m/L)**2 + (n/W)**2 + (p/H)**2)
 
 
@@ -44,3 +45,38 @@ def frequency_spacing_index(L, W, H):
 
     fsi = psi / (num-1)
     return fsi
+
+
+def preferred_dimensions(L=None, W=None, H=None, A=None, ratio="A"):
+    """Preferred dimension ratios of small rectangular rooms
+    """
+    ratios = {
+        "A": {"w/h": 1.2, "l/h": 1.45, "l/w": 1.21},
+        "B": {"w/h": 1.4, "l/h": 1.89, "l/w": 1.35},
+    }
+    assert ratio in "AB"
+    assert L or A
+    assert not (W or H)
+
+    wh = ratios[ratio]["w/h"]
+    lh = ratios[ratio]["l/h"]
+    lw = ratios[ratio]["l/w"]
+
+    l = sp.Symbol('L', positive=True)
+    w = sp.Symbol('W', positive=True)
+    h = sp.Symbol('H', positive=True)
+
+    if L:
+        result = sp.solve([l-L, l/h-lh, l/w-lw], [l, w, h], dict=True)
+        L = result[0][l]
+        W = result[0][w]
+        H = result[0][h]
+
+    if A:
+        system = [w/h-wh, l/h-lh, l/w-lw, l*w-A]
+        result = sp.solve(system, [l, w, h], dict=True)
+        L = result[0][l]
+        W = result[0][w]
+        H = result[0][h]
+
+    return np.array([L, W, H])
