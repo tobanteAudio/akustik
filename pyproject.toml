@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "akustik"
+version = "0.1.0"
+description = "Acoustic simulations"
+readme = "README.md"
+license = { file = "LICENSE.txt" }
+authors = [{ name = "Tobias Hienzsch", email = "post@tobias-hienzsch.de" }]
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "click>=8.1",
+    "matplotlib",
+    "numba",
+    "numpy",
+    "pandas",
+    "resampy",
+    "scipy",
+]
+
+[project.urls]
+Homepage = "https://github.com/tobanteAudio/akustik"
+Issues = "https://github.com/tobanteAudio/akustik/issues"
+
+[project.optional-dependencies]
+dev = ["conan", "pre-commit"]
+test = ["pytest", "pytest-cov"]
+
+[project.scripts]
+akustik = "akustik.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src/python"]
+
+# [tool.pytest.ini_options]
+# minversion = "7.0"
+# addopts = ["-ra", "--strict-markers", "--strict-config"]
+# xfail_strict = true
+# filterwarnings = ["error"]
+# testpaths = ["test/*"]
