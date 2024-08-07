@@ -1,12 +1,12 @@
 import numpy as np
 
 
-def mode(L, W, H, m, n, p):
+def room_mode(L, W, H, m, n, p):
     c = 343
     return c*0.5*np.sqrt((m/L)**2 + (n/W)**2 + (p/H)**2)
 
 
-def mode_kind(m, n, p):
+def room_mode_kind(m, n, p):
     non_zero = (m != 0) + (n != 0) + (p != 0)
     if non_zero == 1:
         return "axial"
@@ -26,7 +26,7 @@ def frequency_spacing_index(L, W, H):
                         "m": m,
                         "n": n,
                         "p": p,
-                        "frequency": mode(L, W, H, m, n, p)
+                        "frequency": room_mode(L, W, H, m, n, p)
                     })
 
     modes = sorted(modes, key=lambda x: x['frequency'])[:25]
