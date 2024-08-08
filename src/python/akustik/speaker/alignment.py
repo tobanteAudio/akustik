@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def main():
+def report():
     c = 343
     fs = 192000
 
@@ -65,7 +65,3 @@ def main():
     print(f"woofer={fs*relative_delay_woofer:.2f} samples")
     print(f"subwoofer={fs*relative_delay_subwoofer:.2f} samples")
     print("")
-
-
-if __name__ == "__main__":
-    main()

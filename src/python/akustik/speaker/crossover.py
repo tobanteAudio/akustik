@@ -3,7 +3,7 @@ import numpy as np
 from scipy.signal import butter, filtfilt, firwin, lfilter
 
 
-def main():
+def report():
     fc = 400
     fs = 96000
     dt = 1/fs
@@ -28,17 +28,21 @@ def main():
 
     lowpass_amplitude = np.abs(lowpass_spectrum)
     highpass_amplitude = np.abs(highpass_spectrum)
+    lowpass_phase = np.angle(lowpass_spectrum)
+    highpass_phase = np.angle(highpass_spectrum)
     mix_amplitude = lowpass_amplitude+highpass_amplitude
+    mix_phase = lowpass_phase+highpass_phase
     mix_db = 20*np.log10(mix_amplitude)
 
     # plt.semilogx(freqs, 20*np.log10(lowpass_amplitude), label="LP")
     # plt.semilogx(freqs, 20*np.log10(highpass_amplitude), label="HP")
-    plt.semilogx(freqs, mix_db, label="LP+HP")
-    plt.vlines(fc, np.min(mix_db), np.max(mix_db),colors="red")
+    # plt.vlines(fc, -100, 0, colors="red")
+    plt.semilogx(freqs, lowpass_phase, label="LP")
+    plt.semilogx(freqs, highpass_phase+0.1, label="HP")
+    # plt.semilogx(freqs, mix_phase, label="LP+HP")
+    # plt.vlines(fc, np.min(mix_db), np.max(mix_db), colors="red")
+    plt.xlim((10, 40_000))
+    # plt.ylim((-100, 0))
     plt.grid()
     plt.legend()
     plt.show()
-
-
-if __name__ == "__main__":
-    main()
