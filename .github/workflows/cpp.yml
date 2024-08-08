@@ -27,7 +27,7 @@ jobs:
             os: ubuntu-24.04
             osx_target: ""
             cmake_prefix_path: "/opt/intel/oneapi/tbb/latest"
-            cmake_flags: ""
+            cmake_flags: "-D CMAKE_PROJECT_TOP_LEVEL_INCLUDES=external/cmake-conan/conan_provider.cmake"
             cxx_flags: "-march=x86-64-v2"
 
           - name: macOS-X64
@@ -74,7 +74,7 @@ jobs:
 
       - name: Install dependencies (macOS)
         if: runner.os == 'macOS'
-        run: brew install conan hdf5 libomp llvm ninja opencv tbb
+        run: brew install cli11 conan fmt hdf5 libomp llvm ninja opencv tbb
 
       - name: Install dependencies (Windows)
         if: runner.os == 'Windows'
@@ -88,6 +88,7 @@ jobs:
         uses: egor-tensin/setup-clang@v1
 
       - name: Setup conan
+        if: runner.os != 'macOS'
         run: |
           conan profile detect -f
           git clone https://github.com/conan-io/cmake-conan.git -b develop2 external/cmake-conan
@@ -99,7 +100,6 @@ jobs:
           -G Ninja
           -D CMAKE_BUILD_TYPE=Release
           -D CMAKE_CXX_FLAGS="${{ matrix.cxx_flags }}"
-          -D CMAKE_PROJECT_TOP_LEVEL_INCLUDES=external/cmake-conan/conan_provider.cmake
           ${{ matrix.cmake_flags }}
 
       - name: CMake build
