@@ -5,10 +5,10 @@ def main():
     c = 343
     fs = 192000
 
-    tweeter = np.array([0, 0, 1.2])
-    midrange = np.array([0, 0, 1.05])
-    woofer = np.array([0, 0, 0.9])
-    subwoofer = np.array([0, 0, 0.5])
+    tweeter = np.array([0, 0, 1.4])
+    midrange = np.array([0, 0, 1.34])
+    woofer = np.array([0, 0, 1.15])
+    subwoofer = np.array([0, 0, 0.65])
 
     listener = np.array([1.0, 2.0, 1.2])
 

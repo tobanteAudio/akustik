@@ -18,8 +18,8 @@ def power_for_target_spl(SPL_target, SPL_ref,  P_ref=1):
 
 
 def driver_spl_report(df, drivers, SPL_target=None):
-    # from common.plot import plot_styles
-    # plt.rcParams.update(plot_styles)
+    from akustik.plot.style import default_styles
+    plt.rcParams.update(default_styles)
     plt.title("SPL vs. Power")
     plt.xlabel("SPL [dB]")
     plt.ylabel("Power [W]")
@@ -42,6 +42,8 @@ def driver_spl_report(df, drivers, SPL_target=None):
             P_required = power_for_target_spl(SPL_target, SPL_ref, P_ref)
 
         print(f"- {name}:")
+        print(f"    {P_max=:.2f} W")
+        print(f"    {P_rms=:.2f} W")
         print(f"    {SPL_max=:.2f} dB")
         print(f"    {SPL_rms=:.2f} dB")
         if SPL_target:
@@ -61,17 +63,19 @@ def main():
     drivers = [
         # "Alcone AC 15",
         # "AMT U60W1.1-C",
-        "AMT U160W1.1-R",
+        # "AMT U160W1.1-R",
         # "Dayton Audio AMTHR-4",
         # "Dayton Audio AMTPRO-4",
-        "Morel CAT 328-110",
+        # "Morel CAT 328-110",
         # "Morel EM 1308",
-        # "Morel ET 448",
+        "Morel ET 338",
+        "Morel ET 448",
         "Dayton Audio RSS315HF-4",
         "Dayton Audio RSS390HF-4",
-        "ScanSpeak Discovery 15M/4624G00",
+        # "ScanSpeak Discovery 15M/4624G00",
+        # "Supravox 400 GMF",
     ]
-    driver_spl_report(df, drivers, SPL_target=106)
+    driver_spl_report(df, drivers, SPL_target=108)
 
 
 if __name__ == "__main__":
