@@ -48,18 +48,18 @@ auto loadSimulation2D(std::filesystem::path const& path, bool exportVideo)
 }
 
 auto summary(Simulation2D const& sim) -> void {
-  fmt::println("Nt: {}", sim.Nt);
-  fmt::println("Nx: {}", sim.Nx);
-  fmt::println("Ny: {}", sim.Ny);
-  fmt::println("N: {}", sim.Nx * sim.Ny);
-  fmt::println("inx: {}", sim.inx);
-  fmt::println("iny: {}", sim.iny);
-  fmt::println("in_mask: {}", sim.in_mask.size());
-  fmt::println("bn_ixy: {}", sim.bn_ixy.size());
-  fmt::println("adj_bn: {}", sim.adj_bn.size());
-  fmt::println("out_ixy: {}", sim.out_ixy.size());
-  fmt::println("src_sig: {}", sim.src_sig.size());
-  fmt::println("loss_factor: {}", sim.loss_factor);
+  fmt::print("Nt: {}\n", sim.Nt);
+  fmt::print("Nx: {}\n", sim.Nx);
+  fmt::print("Ny: {}\n", sim.Ny);
+  fmt::print("N: {}\n", sim.Nx * sim.Ny);
+  fmt::print("inx: {}\n", sim.inx);
+  fmt::print("iny: {}\n", sim.iny);
+  fmt::print("in_mask: {}\n", sim.in_mask.size());
+  fmt::print("bn_ixy: {}\n", sim.bn_ixy.size());
+  fmt::print("adj_bn: {}\n", sim.adj_bn.size());
+  fmt::print("out_ixy: {}\n", sim.out_ixy.size());
+  fmt::print("src_sig: {}\n", sim.src_sig.size());
+  fmt::print("loss_factor: {}\n", sim.loss_factor);
 }
 
 BackgroundVideoWriter::BackgroundVideoWriter(VideoWriter::Options const& opt)

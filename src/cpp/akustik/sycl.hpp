@@ -29,15 +29,15 @@ inline auto summary(sycl::device dev) -> void {
   auto type         = dev.get_info<sycl::info::device::device_type>();
   auto maxAllocSize = dev.get_info<sycl::info::device::max_mem_alloc_size>();
 
-  fmt::println("----------------------------------------");
-  fmt::println("Name: {}", name.c_str());
-  fmt::println("Vendor: {}", vendor.c_str());
-  fmt::println("Type: {}", toString(type).c_str());
-  fmt::println("Max alloc size: {} MB", maxAllocSize / 1024 / 1024);
+  fmt::print("----------------------------------------\n");
+  fmt::print("Name: {}\n", name.c_str());
+  fmt::print("Vendor: {}\n", vendor.c_str());
+  fmt::print("Type: {}\n", toString(type).c_str());
+  fmt::print("Max alloc size: {} MB\n", maxAllocSize / 1024 / 1024);
   // for (auto groupSize : dev.get_info<sycl::info::device::sub_group_sizes>()) {
-  //   fmt::println("Subgroup size: {}", groupSize);
+  //   fmt::print("Subgroup size: {}\n", groupSize);
   // }
-  fmt::println("");
+  fmt::print("\n");
 }
 
 template<typename Accessor>

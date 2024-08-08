@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
 
   auto const stop = std::chrono::steady_clock::now();
   auto const sec  = std::chrono::duration<double>(stop - start);
-  fmt::println("Simulation time: {} s", sec.count());
+  fmt::print("Simulation time: {} s\n", sec.count());
 
   return EXIT_SUCCESS;
 }

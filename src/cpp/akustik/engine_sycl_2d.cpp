@@ -243,7 +243,7 @@ auto EngineSYCL2D::operator()(Simulation2D const& sim
     }
   }
 
-  fmt::println("");
+  fmt::print("\n");
 
   return outputs;
 }

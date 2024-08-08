@@ -134,7 +134,7 @@ auto EngineNative2D::operator()(Simulation2D const& sim
     videoThread->join();
   }
 
-  fmt::println("");
+  fmt::print("\n");
 
   return out_buf;
 }
