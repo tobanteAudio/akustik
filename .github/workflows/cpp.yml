@@ -27,7 +27,7 @@ jobs:
             os: ubuntu-24.04
             osx_target: ""
             cmake_prefix_path: "/opt/intel/oneapi/tbb/latest"
-            cmake_flags: "-D CMAKE_PROJECT_TOP_LEVEL_INCLUDES=external/cmake-conan/conan_provider.cmake"
+            cmake_flags: ""
             cxx_flags: "-march=x86-64-v2"
 
           - name: macOS-X64
