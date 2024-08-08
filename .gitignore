@@ -1,5 +1,6 @@
 # Project
 /data/sim_data
+/external
 
 # Editor
 .idea/
@@ -9,6 +10,7 @@
 # C++
 /build
 /cmake-build-*
+/CMakeUserPresets.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
