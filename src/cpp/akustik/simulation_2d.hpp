@@ -30,11 +30,16 @@ struct Simulation2D {
 
   std::vector<int64_t> out_ixy; // Receiver nodes
 
+  bool showProgress;
   std::optional<VideoWriter::Options> videoOptions;
 };
 
-auto loadSimulation2D(std::filesystem::path const& path, bool exportVideo)
-    -> Simulation2D;
+auto loadSimulation2D(
+    std::filesystem::path const& path,
+    bool exportVideo,
+    bool progress
+) -> Simulation2D;
+
 auto summary(Simulation2D const& sim) -> void;
 
 struct BackgroundVideoWriter {

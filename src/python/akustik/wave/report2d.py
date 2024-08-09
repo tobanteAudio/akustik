@@ -25,12 +25,17 @@ def main(sim_dir):
 
     file = h5py.File(out_file, 'r')
     out = file['out'][...]
-    out, fs = _resample(out, fs)
-
     fmax = float(sim_file['fmax'][...])
-    fmin = 125.0
+    fmin = 20.0
+
+    # dc offset
+    mean = np.array([np.mean(out, axis=-1)])
+    out -= np.tile(mean.transpose(), (1, out.shape[1]))
+    out, fs = _resample(out, fs, Fs_target=48_000)
+
     trim_ms = 20
     trim_samples = int(fs/1000*trim_ms)
+    out = out[:, trim_samples:]
 
     print(f"{out_file=}")
     print(f"{fs=:.3f} Hz")
@@ -39,15 +44,14 @@ def main(sim_dir):
     print(f"{trim_samples=}")
     print(f"{out.shape=}")
 
-    out = out[:, trim_samples:]
-
     sos = signal.butter(4, fmin, fs=fs, btype='high', output='sos')
-    out = signal.sosfiltfilt(sos, out)
+    out = signal.sosfiltfilt(sos, out, axis=-1)
 
-    sos = signal.butter(4, fmax, fs=fs, btype='low', output='sos')
-    out = signal.sosfiltfilt(sos, out)
+    sos = signal.butter(8, fmax, fs=fs, btype='low', output='sos')
+    out = signal.sosfiltfilt(sos, out, axis=-1)
 
     out *= signal.windows.hann(out.shape[1])
+
     spectrum = np.fft.rfft(out, axis=-1)
     frequencies = np.fft.rfftfreq(out.shape[1], 1/fs)
     times = np.linspace(0.0, out.shape[1]/fs, out.shape[1])

@@ -128,9 +128,11 @@ auto EngineSYCL2D::operator()(Simulation2D const& sim
   auto frame = std::vector<double>(Nx * Ny);
 
   for (auto n{0LL}; n < Nt; ++n) {
-    fmt::print(stdout, "\r\r\r\r\r\r\r\r\r");
-    fmt::print(stdout, "{:04d}/{:04d}", n, Nt);
-    std::fflush(stdout);
+    if (sim.showProgress) {
+      fmt::print(stdout, "\r\r\r\r\r\r\r\r\r");
+      fmt::print(stdout, "{:04d}/{:04d}", n, Nt);
+      std::fflush(stdout);
+    }
 
     queue.submit([&](sycl::handler& cgh) {
       auto u0a       = sycl::accessor{u0, cgh, sycl::write_only};
@@ -243,7 +245,9 @@ auto EngineSYCL2D::operator()(Simulation2D const& sim
     }
   }
 
-  fmt::print("\n");
+  if (sim.showProgress) {
+    fmt::print("\n");
+  }
 
   return outputs;
 }

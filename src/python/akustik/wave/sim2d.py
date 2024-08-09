@@ -1,4 +1,5 @@
 import pathlib
+import subprocess
 
 import cv2
 import h5py
@@ -167,6 +168,7 @@ def main(
     apply_rigid=True,
     c=343.0,
     duration=None,
+    engine_exe=None,
     fmax=None,
     ppw=None,
     save=False,
@@ -267,15 +269,6 @@ def main(
     sps30 = dt*30
     target_sps = 0.115
     fps = int(min(120, target_sps/sps30))
-
-    if video:
-        video_name = sim_dir/'output_video.avi'
-        print(f'--SIM-SETUP: Create python video file: {video_name}')
-        height, width = 1000, 1000  # u0.shape
-        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-        video = cv2.VideoWriter(video_name, fourcc, fps,
-                                (width, height), isColor=False)
-
     if save:
         print('--SIM-SETUP: Writing dataset to h5 file')
         h5f = h5py.File(sim_dir / pathlib.Path('sim.h5'), 'w')
@@ -297,6 +290,13 @@ def main(
         h5f.create_dataset('src_sig', data=src_sig)
         h5f.close()
 
+    model_img = np.zeros((Nx, Ny), dtype=np.uint8)
+    model_img[~in_mask] = 255
+    model_img.flat[out_ixy] = 255
+
+    model_img = cv2.rotate(model_img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    cv2.imwrite(sim_dir / 'model.png', model_img.astype(np.uint8))
+
     print(f'  fmax = {fmax:.3f} Hz')
     print(f'  fs   = {fs:.3f} Hz')
     print(f'  Δx   = {dx*100:.5f} cm / {dx*1000:.2f} mm')
@@ -307,16 +307,26 @@ def main(
     print(f'  Ny   = {int(Ny)}')
     print(f'  N    = {int(Nx)*int(Ny)}')
 
-    model_img = np.zeros((Nx, Ny), dtype=np.uint8)
-    model_img[~in_mask] = 255
-    model_img.flat[out_ixy] = 255
-
-    model_img = cv2.rotate(model_img, cv2.ROTATE_90_COUNTERCLOCKWISE)
-    cv2.imwrite(sim_dir / 'model.png', model_img.astype(np.uint8))
-
-    out = np.ndarray((len(out_ixy), Nt))
+    if engine_exe:
+        engine_exe = pathlib.Path(engine_exe).absolute()
+        result = subprocess.run(
+            args=[str(engine_exe), "-s", str(sim_dir / "sim.h5")],
+            capture_output=True,
+            text=True,
+        )
+        print(result.stdout)
+        print(result.returncode)
+        return
 
     if video:
+        video_name = sim_dir/'out.avi'
+        height, width = 1000, 1000  # u0.shape
+        fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+        video = cv2.VideoWriter(video_name, fourcc, fps,
+                                (width, height), isColor=False)
+        print(f'--SIM-SETUP: Create python video file: {video_name}')
+
+        out = np.ndarray((len(out_ixy), Nt))
         for nt in tqdm(range(Nt)):
             stencil_air(u0, u1, u2, in_mask)
             if apply_rigid:

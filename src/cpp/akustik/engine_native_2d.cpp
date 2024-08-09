@@ -57,9 +57,11 @@ auto EngineNative2D::operator()(Simulation2D const& sim
   auto out = out_buf.to_mdspan();
 
   for (auto n{0LL}; n < Nt; ++n) {
-    fmt::print(stdout, "\r\r\r\r\r\r\r\r\r");
-    fmt::print(stdout, "{:04d}/{:04d}", n, Nt);
-    std::fflush(stdout);
+    if (sim.showProgress) {
+      fmt::print(stdout, "\r\r\r\r\r\r\r\r\r");
+      fmt::print(stdout, "{:04d}/{:04d}", n, Nt);
+      std::fflush(stdout);
+    }
 
     // Air Update
     auto rng = oneapi::tbb::blocked_range<int64_t>(1, Nx - 1);
@@ -134,7 +136,9 @@ auto EngineNative2D::operator()(Simulation2D const& sim
     videoThread->join();
   }
 
-  fmt::print("\n");
+  if (sim.showProgress) {
+    fmt::print("\n");
+  }
 
   return out_buf;
 }

@@ -21,13 +21,15 @@
 struct Arguments {
   std::string simDir{};
   std::string out{"out.h5"};
+  bool progress{false};
   bool video{false};
 };
 
 int main(int argc, char** argv) {
-  auto app  = CLI::App{"akustik-2d"};
+  auto app  = CLI::App{"akustik-engine"};
   auto args = Arguments{};
   app.add_option("-s,--sim_dir", args.simDir, "Folder path");
+  app.add_flag("-p,--progress", args.progress, "Show progress");
   app.add_option("-o,--out", args.out, "Filename");
   app.add_flag("-v,--video", args.video, "Export video");
   CLI11_PARSE(app, argc, argv);
@@ -44,7 +46,7 @@ int main(int argc, char** argv) {
     throw std::runtime_error{"invalid file: " + filePath.string()};
   }
 
-  auto const sim    = akustik::loadSimulation2D(filePath, args.video);
+  auto const sim = akustik::loadSimulation2D(filePath, args.video, args.progress);
   auto const engine = akustik::EngineNative2D{};
   auto const out    = engine(sim);
 

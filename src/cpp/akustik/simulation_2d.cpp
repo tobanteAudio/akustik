@@ -8,8 +8,11 @@
 
 namespace akustik {
 
-auto loadSimulation2D(std::filesystem::path const& path, bool exportVideo)
-    -> Simulation2D {
+auto loadSimulation2D(
+    std::filesystem::path const& path,
+    bool exportVideo,
+    bool progress
+) -> Simulation2D {
   auto file = H5FReader{path.string().c_str()};
 
   auto const Nx = file.read<int64_t>("Nx");
@@ -43,6 +46,7 @@ auto loadSimulation2D(std::filesystem::path const& path, bool exportVideo)
 
       .out_ixy = file.read<std::vector<int64_t>>("out_ixy"),
 
+      .showProgress = progress,
       .videoOptions = exportVideo ? std::optional{videoOptions} : std::nullopt,
   };
 }
