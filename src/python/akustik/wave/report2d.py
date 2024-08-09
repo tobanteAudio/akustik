@@ -3,9 +3,17 @@ import pathlib
 import h5py
 import matplotlib.pyplot as plt
 import numpy as np
+from resampy import resample
 import scipy.signal as signal
 
 from akustik.diffusor.measurement import polar_response
+
+
+def _resample(x, Fs_original, Fs_target=48_000):
+    if Fs_original == Fs_target:
+        x, Fs_original
+    x = resample(x, Fs_original, Fs_target, filter='kaiser_best')
+    return x, Fs_target
 
 
 def main(sim_dir):
@@ -14,13 +22,15 @@ def main(sim_dir):
 
     sim_file = h5py.File(sim_dir / "sim.h5", 'r')
     fs = float(sim_file['fs'][...])
+
+    file = h5py.File(out_file, 'r')
+    out = file['out'][...]
+    out, fs = _resample(out, fs)
+
     fmax = float(sim_file['fmax'][...])
     fmin = 125.0
     trim_ms = 20
     trim_samples = int(fs/1000*trim_ms)
-
-    file = h5py.File(out_file, 'r')
-    out = file['out'][...]
 
     print(f"{out_file=}")
     print(f"{fs=:.3f} Hz")
