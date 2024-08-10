@@ -28,12 +28,13 @@ def driver_spl_report(df, drivers, SPL_target=108):
                label=f"Target {SPL_target} dB")
 
     for name in drivers:
-        tweeter = df[df["Name"] == name]
-        V_ref = float(tweeter["V_ref"].iloc[0])
-        Z_ref = float(tweeter["Z_ref"].iloc[0])
-        P_rms = float(tweeter["P_rms"].iloc[0])
-        P_max = float(tweeter["P_max"].iloc[0])
-        SPL_ref = float(tweeter["SPL_ref"].iloc[0])
+        driver = df[df["Name"] == name]
+        D_nominal = float(driver["Diameter_nominal"].iloc[0])
+        V_ref = float(driver["V_ref"].iloc[0])
+        Z_ref = float(driver["Z_ref"].iloc[0])
+        P_rms = float(driver["P_rms"].iloc[0])
+        P_max = float(driver["P_max"].iloc[0])
+        SPL_ref = float(driver["SPL_ref"].iloc[0])
 
         P_ref = (V_ref**2)/Z_ref
         SPL_rms = max_sound_pressure(SPL_ref, P_rms, P_ref)
@@ -51,7 +52,8 @@ def driver_spl_report(df, drivers, SPL_target=108):
 
         desired = np.linspace(SPL_ref, SPL_rms, 1024)
         required = power_for_target_spl(desired, SPL_ref, P_ref)
-        plt.plot(desired, required, label=f"{name} {P_target:.1f} W")
+        label=f"{name} {int(D_nominal)}\" {P_target:.1f} W"
+        plt.plot(desired, required, label=label)
 
     plt.legend()
     plt.show()
@@ -64,14 +66,23 @@ def report(driver_db, SPL_target):
         # "AMT U60W1.1-C",
         # "AMT U160W1.1-R",
         # "Dayton Audio AMTHR-4",
-        "Dayton Audio AMTPRO-4",
+        # "Dayton Audio AMTPRO-4",
         # "Morel CAT 328-110",
         # "Morel EM 1308",
-        "Morel ET 338",
-        "Morel ET 448",
+        # "Morel ET 338",
+        # "Morel ET 448",
+        # "Mundorf AMT25CS2.1-R",
+        # "Mundorf AMT29CM1.1-R",
+        "JBL Selenium D220Ti-8",
         # "Dayton Audio RSS315HF-4",
         # "Dayton Audio RSS390HF-4",
+        # "Dayton Audio RSS390HO-4",
+        # "Dayton Audio RSS460HO-4",
         # "ScanSpeak Discovery 15M/4624G00",
-        # "Supravox 400 GMF",
+        "Supravox 400 GMF",
+        # "Volt Loudspeakers VM752",
+        # "Volt Loudspeakers RV3143",
+        # "Volt Loudspeakers RV3863",
+        # "Volt Loudspeakers RV4564",
     ]
     driver_spl_report(df, drivers, SPL_target=SPL_target)
