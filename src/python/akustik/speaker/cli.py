@@ -21,6 +21,17 @@ def crossover(ctx):
     report()
 
 
+@speaker.command(help="Dayton Audio Test System.")
+@click.pass_context
+@click.option('--fmin', default=10, show_default=True)
+@click.option('--fmax', default=30000, show_default=True)
+@click.argument('frd_file', type=click.Path(exists=True))
+@click.argument('zma_file', type=click.Path(exists=True))
+def dats(ctx, frd_file, zma_file, fmin, fmax):
+    from akustik.speaker.dats import report
+    report(frd_file, zma_file, fmin, fmax)
+
+
 @speaker.command(help="Power requirements.")
 @click.pass_context
 @click.option('--driver_db', type=click.Path(exists=True))

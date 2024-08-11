@@ -1,5 +1,6 @@
 # Project
 /data/sim_data
+/data/speaker
 /external
 
 # Editor
@@ -167,3 +168,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# macOS
+.DS_Store
