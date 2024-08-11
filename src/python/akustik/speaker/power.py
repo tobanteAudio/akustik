@@ -52,7 +52,7 @@ def driver_spl_report(df, drivers, SPL_target=108):
 
         desired = np.linspace(SPL_ref, SPL_rms, 1024)
         required = power_for_target_spl(desired, SPL_ref, P_ref)
-        label=f"{name} {int(D_nominal)}\" {P_target:.1f} W"
+        label = f"{name} {int(D_nominal)}\" {P_target:.1f} W"
         plt.plot(desired, required, label=label)
 
     plt.legend()
@@ -75,12 +75,17 @@ def report(driver_db, SPL_target):
         # "Mundorf AMT29CM1.1-R",
         # "JBL Selenium D220Ti-8",
         # "Dayton Audio RSS315HF-4",
-        "Dayton Audio RSS390HF-4",
-        "Dayton Audio RSS390HO-4",
+        # "Dayton Audio RSS390HF-4",
+        # "Dayton Audio RSS390HO-4",
         # "Dayton Audio RSS460HO-4",
         # "ScanSpeak Discovery 15M/4624G00",
+        "ScanSpeak Discovery 30W/4558T00",
+        "ScanSpeak Revelator 32W/4878T00",
+        "ScanSpeak Revelator 32W/4878T01",
         # "Supravox 400 GMF",
+        # "Volt Loudspeakers VM527",
         # "Volt Loudspeakers VM752",
+        "Volt Loudspeakers RV2501",
         # "Volt Loudspeakers RV3143",
         # "Volt Loudspeakers RV3863",
         # "Volt Loudspeakers RV4564",

@@ -5,6 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.ticker import ScalarFormatter
+import numpy as np
+
 
 from akustik.plot.style import default_styles
 
@@ -39,6 +41,12 @@ def axes_style(ax: Axes, fmin, fmax):
     ax.legend()
 
     return ax
+
+
+def max_impedance(Z: np.ndarray, f: np.ndarray):
+    Z = Z[:Z.shape[0]//2]
+    Zmax_index = np.argmax(Z)
+    return Z[Zmax_index], f[Zmax_index]
 
 
 def ensure_absolute_path(paths):
@@ -78,6 +86,33 @@ def report(dats_dirs, fmin, fmax):
         data["electric"]["impedance"].append(IR["Impedance"].to_numpy())
         data["electric"]["phase"].append(IR["Phase"].to_numpy())
 
+        Re = 3.24
+        Z: np.ndarray = IR["Impedance"].to_numpy()
+        f: np.ndarray = IR["Frequency"].to_numpy()
+
+        assert f.shape == Z.shape
+        Zmax, freq = max_impedance(Z, f)
+        Z12 = np.sqrt(Re*Zmax)
+
+        Z_f1 = Z[f < freq]
+        f_f1 = f[f < freq]
+        Z1_index = np.abs(Z_f1 - Z12).argmin()
+        Z1 = Z_f1[Z1_index]
+        f1 = f_f1[Z1_index]
+
+        Z = Z[(f > freq) & (f < freq*2)]
+        f = f[(f > freq) & (f < freq*2)]
+        Z2_index = np.abs(Z - Z12).argmin()
+        Z2 = Z[Z2_index]
+        f2 = f[Z2_index]
+        print(f"{freq=}")
+        print(f"{Zmax=}")
+        print(f"{Z12=}")
+        print(f"{Z1=}")
+        print(f"{f1=}")
+        print(f"{Z2=}")
+        print(f"{f2=}")
+
     plt.rcParams.update(default_styles)
     fig, axs = plt.subplots(2, 2)
     # fig.suptitle(name)
@@ -108,5 +143,3 @@ def report(dats_dirs, fmin, fmax):
     axes_style(axs[0][1], fmin, fmax)
     axes_style(axs[1][1], fmin, fmax)
     plt.show()
-
-    # print(data["acoustic"]["freq"])

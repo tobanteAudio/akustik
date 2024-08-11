@@ -23,9 +23,9 @@ def crossover(ctx):
 
 @speaker.command(help="Dayton Audio Test System.")
 @click.pass_context
-@click.argument('dats_dirs', nargs=-1, type=click.Path(exists=True))
 @click.option('--fmin', default=10, show_default=True)
 @click.option('--fmax', default=30000, show_default=True)
+@click.argument('dats_dirs', nargs=-1, type=click.Path(exists=True))
 def dats(ctx, dats_dirs, fmin, fmax):
     from akustik.speaker.dats import report
     report(dats_dirs, fmin, fmax)
@@ -42,7 +42,8 @@ def power(ctx, spl_target, driver_db):
 
 @speaker.command(help="Thiele/Small parameters.")
 @click.option('--driver_db', type=click.Path(exists=True))
+@click.argument('drivers', nargs=-1, type=str)
 @click.pass_context
-def ts(ctx, driver_db):
+def ts(ctx, driver_db, drivers):
     from akustik.speaker.thiele_small import report
-    report()
+    report(driver_db, list(drivers))
