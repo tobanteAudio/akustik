@@ -27,7 +27,7 @@
 
 Thiele-Small (T/S) parameters are a set of electromechanical parameters that define the behavior of loudspeakers, particularly low-frequency drivers such as woofers. Named after A. Neville Thiele and Richard H. Small, who developed and popularized these parameters, they provide a standardized way to describe the key characteristics of a speaker's performance, especially in relation to its enclosure design.
 
-- **Fs** (Resonance Frequency): This is the frequency at which the speaker's cone naturally resonates. It is a crucial parameter for understanding how the speaker will perform at low frequencies.
+- **fs** (Resonance Frequency): This is the frequency at which the speaker's cone naturally resonates. It is a crucial parameter for understanding how the speaker will perform at low frequencies.
 - **Qts** (Total Q Factor): This parameter represents the overall damping of the speaker, combining both mechanical (Qms) and electrical (Qes) damping. It is a dimensionless parameter that indicates how underdamped (high Q) or overdamped (low Q) the speaker is.
 - **Qms** (Mechanical Q Factor): This is the mechanical damping of the speaker, relating to the physical characteristics such as the suspension and surround.
 - **Qes** (Electrical Q Factor): This represents the electrical damping of the speaker, which is influenced by factors like the voice coil resistance and the magnet system.
