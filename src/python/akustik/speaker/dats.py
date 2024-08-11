@@ -1,3 +1,6 @@
+import glob
+import pathlib
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
@@ -33,42 +36,71 @@ def axes_style(ax: Axes, fmin, fmax):
     ax.set_xlim((fmin, fmax))
     ax.grid(which='minor', color='#DDDDDD', linestyle=':', linewidth=0.5)
     ax.minorticks_on()
+    ax.legend()
 
     return ax
 
 
-def report(frd_file, zma_file, fmin, fmax):
-    FR = read_dats_frequency_response(frd_file)
-    IR = read_dats_impedance_response(zma_file)
+def ensure_absolute_path(paths):
+    paths = [pathlib.Path(path).absolute() for path in paths]
+    return paths
 
-    frequency = FR["Frequency"].to_numpy()
-    spl = FR["SPL"].to_numpy()
-    phase = FR["Phase"].to_numpy()
+
+def report(dats_dirs, fmin, fmax):
+    P_amp = 150
+    dats_dirs = ensure_absolute_path(dats_dirs)
+    data = {
+        "name": [],
+        "acoustic": {
+            "freq": [],
+            "spl": [],
+            "phase": [],
+        },
+        "electric": {
+            "freq": [],
+            "impedance": [],
+            "phase": [],
+        },
+    }
+
+    for dats_dir in dats_dirs:
+        frd_files = glob.glob(str(dats_dir/"FRD"/"*.frd"))
+        zma_files = glob.glob(str(dats_dir/"ZMA"/"*.zma"))
+
+        FR = read_dats_frequency_response(frd_files[0])
+        IR = read_dats_impedance_response(zma_files[0])
+
+        data["name"].append(pathlib.Path(zma_files[0]).stem)
+        data["acoustic"]["freq"].append(FR["Frequency"].to_numpy())
+        data["acoustic"]["spl"].append(FR["SPL"].to_numpy())
+        data["acoustic"]["phase"].append(FR["Phase"].to_numpy())
+        data["electric"]["freq"].append(IR["Frequency"].to_numpy())
+        data["electric"]["impedance"].append(IR["Impedance"].to_numpy())
+        data["electric"]["phase"].append(IR["Phase"].to_numpy())
 
     plt.rcParams.update(default_styles)
     fig, axs = plt.subplots(2, 2)
-    fig.suptitle("Dayton Audio 15\" RSS390HF-4")
+    # fig.suptitle(name)
+
+    def plot(ax: Axes, x, y):
+        for ix, iy, name in zip(x, y, data["name"]):
+            ax.semilogx(ix, iy, label=name)
 
     ax: Axes = axs[0][0]
-    ax.semilogx(frequency, spl)
+    plot(ax, data["acoustic"]["freq"], data["acoustic"]["spl"])
     ax.set_ylabel('SPL [dB]')
     ax.set_ylim((70, 120))
 
     ax: Axes = axs[1][0]
-    ax.semilogx(frequency, phase)
+    plot(ax, data["acoustic"]["freq"], data["acoustic"]["phase"])
     ax.set_ylabel('Phase [Degree]')
 
-    frequency = IR["Frequency"].to_numpy()
-    impedance = IR["Impedance"].to_numpy()
-    phase = IR["Phase"].to_numpy()
-    P_amp = 150
-
     ax: Axes = axs[0][1]
-    ax.semilogx(frequency, impedance)
+    plot(ax, data["electric"]["freq"], data["electric"]["impedance"])
     ax.set_ylabel('Impedance [Ohm]')
 
     ax: Axes = axs[1][1]
-    ax.semilogx(frequency, phase)
+    plot(ax, data["electric"]["freq"], data["electric"]["phase"])
     ax.set_ylabel('Phase [Degree]')
 
     axes_style(axs[0][0], fmin, fmax)
@@ -76,3 +108,5 @@ def report(frd_file, zma_file, fmin, fmax):
     axes_style(axs[0][1], fmin, fmax)
     axes_style(axs[1][1], fmin, fmax)
     plt.show()
+
+    # print(data["acoustic"]["freq"])
