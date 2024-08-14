@@ -4,8 +4,6 @@
 
 - [Decibel](https://www.sfu.ca/sonic-studio-webdav/handbook/Decibel.html)
 - [SPL](https://sengpielaudio.com/calculator-soundlevel.htm)
-- [Sound Transmission](https://www.sekon.cc/acoustics/SoundTransmission/index.htm)
-- [Equal Loudness](https://cdn.standards.iteh.ai/samples/83117/6afa5bd94e0e4f32812c28c3b0a7b8ac/ISO-226-2023.pdf)
 
 ## Software
 
@@ -84,3 +82,28 @@ Thiele-Small (T/S) parameters are a set of electromechanical parameters that def
 ### Amplifier
 
 - 4-way Class D
+
+```mermaid
+---
+title: 4-way main monitor with active crossover
+---
+graph LR
+    Signal --> |Line| Preamp
+    Preamp --> |Line| Crossover
+
+    subgraph Crossover
+        Converter[Converter<br>- ADC: 1x input<br>- DAC: 4x output]
+        Delay[Delay<br>- Acoustic centre<br>- Distance to listener]
+        Filter[Filter<br>- Phase match at crossover frequency]
+    end
+
+    Crossover --> |Line| AmpHigh[Amp]
+    Crossover --> |Line| AmpMid[Amp]
+    Crossover --> |Line| AmpLow[Amp]
+    Crossover --> |Line| AmpSub[Amp]
+
+    AmpHigh --> |High| DriverHigh[1#quot; Tweeter]
+    AmpMid --> |High| DriverMid[3#quot; Cone]
+    AmpLow --> |High| DriverLow[12#quot; Woofer]
+    AmpSub --> |High| DriverSub[12#quot; Subwoofer]
+```

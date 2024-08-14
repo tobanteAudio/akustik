@@ -6,6 +6,9 @@
 
 ## Sound Isolation
 
+- [Sound Transmission](https://www.sekon.cc/acoustics/SoundTransmission/index.htm)
+- [Equal Loudness](https://cdn.standards.iteh.ai/samples/83117/6afa5bd94e0e4f32812c28c3b0a7b8ac/ISO-226-2023.pdf)
+
 ## Acoustics
 
 ### Psychoacoustics
