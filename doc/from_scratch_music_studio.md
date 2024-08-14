@@ -17,6 +17,7 @@
 - [Augspurger](https://augspurger.com)
 - [PMC](https://pmc-speakers.com/studio/main-monitors)
 - [Symphonic Acoustics (George Augspurger)](https://symphonicacoustics.com/george-augspurger-studio-monitors)
+- [Quested](https://quested.com)
 
 ## Human Requirements
 
