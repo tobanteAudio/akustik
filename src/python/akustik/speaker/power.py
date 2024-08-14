@@ -44,6 +44,7 @@ def driver_spl_report(df, drivers, SPL_target=108):
         print(f"- {name}:")
         print(f"    {P_max=:.2f} W")
         print(f"    {P_rms=:.2f} W")
+        print(f"    {P_ref=:.2f} W")
         print(f"    {SPL_peak=:.2f} dB")
         print(f"    {SPL_rms=:.2f} dB")
         print(f"    {SPL_ref=:.2f} dB")
@@ -74,18 +75,21 @@ def report(driver_db, SPL_target):
         # "Mundorf AMT25CS2.1-R",
         # "Mundorf AMT29CM1.1-R",
         # "JBL Selenium D220Ti-8",
-        # "Dayton Audio RSS315HF-4",
+        "Dayton Audio RS270-4",
+        "Dayton Audio RSS265HF-8",
+        "Dayton Audio RSS315HFA-8",
+        "Dayton Audio RSS315HF-4",
         # "Dayton Audio RSS390HF-4",
         # "Dayton Audio RSS390HO-4",
         # "Dayton Audio RSS460HO-4",
         # "ScanSpeak Discovery 15M/4624G00",
-        "ScanSpeak Discovery 30W/4558T00",
-        "ScanSpeak Revelator 32W/4878T00",
-        "ScanSpeak Revelator 32W/4878T01",
+        # "ScanSpeak Discovery 30W/4558T00",
+        # "ScanSpeak Revelator 32W/4878T00",
+        # "ScanSpeak Revelator 32W/4878T01",
         # "Supravox 400 GMF",
         # "Volt Loudspeakers VM527",
         # "Volt Loudspeakers VM752",
-        "Volt Loudspeakers RV2501",
+        # "Volt Loudspeakers RV2501",
         # "Volt Loudspeakers RV3143",
         # "Volt Loudspeakers RV3863",
         # "Volt Loudspeakers RV4564",
