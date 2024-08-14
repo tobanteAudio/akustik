@@ -1,4 +1,4 @@
-Name,Type,BL,Cms,Mms,Re,Qes,Qms,n0,Sd,f1,f2,Zmax,Diameter_nominal,fmin,fmax,fs,F3_sealed,F3_ported,P_rms,P_max,Qts,SPL_ref,V_ref,Vas,Volume_sealed,Volume_ported,Weight,Z_ref
+Name,Type,BL,Cms,Mms,Re,Qes,Qms,n0,Sd,f1,f2,Zmax,D_nominal,fmin,fmax,fs,F3_sealed,F3_ported,P_rms,P_max,Qts,SPL_ref,V_ref,Vas,Volume_sealed,Volume_ported,Weight,Z_ref
 Alcone AC 15,Tweeter,,,,,,,,,,,,1.0,1000.0,20000.0,705,,,10,100,,94.0,2.83,,,,,6
 Dayton Audio AMTHR-4,AMT,,,,,,,,,,,,,,,,,,25,,,94.0,2.83,,,,,4
 Dayton Audio AMTPRO-4,AMT,,,,,,,,,,,,,,,,,,50,,,94.0,2.83,,,,,4
@@ -17,6 +17,7 @@ Morel ET 338,Tweeter,,,,,,,,,,,,1.0,,,750.0,,,200,1000,,92.5,2.83,,,,,8
 Morel ET 448,Tweeter,,,,,,,,,,,,1.0,,,750.0,,,120,1000,,92.0,2.83,,,,,8
 Morel UW 1058,Woofer,,,,,,,,,,,,10.0,,,26.0,,,500,1500,0.43,85.8,2.83,40.8,,,,8
 Morel UW 1258,Woofer,,,,,,,,,,,,12.0,,,21.0,,,800,3000,0.43,87.0,2.83,138.38,,,,8
+Morel ST 1048,Tweeter,,,0.00044,5.2,,,,0.0006,,,,1.0,1400.0,22000.0,680.0,,,220,1000,,91.5,2.83,,,,0.435,8
 Mundorf AMT 25CS2.1-R,AMT,,,,,,,,,,,,,,,1100.0,,,,230,,94.0,2.83,,,,,8
 Mundorf AMT 29CM1.1-R,AMT,,,,,,,,,,,,,,,1500.0,,,,250,,100.0,2.83,,,,,8
 Mundorf AMT U160W1.1-R,AMT,,,,,,,,,,,,,,,1750.0,,,15,140,,93.0,2.83,,,,,4

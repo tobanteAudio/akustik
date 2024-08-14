@@ -20,6 +20,8 @@ def power_for_target_spl(SPL_target, SPL_ref,  P_ref=1):
 def driver_spl_report(df, drivers, SPL_target=108):
     from akustik.plot.style import default_styles
     plt.rcParams.update(default_styles)
+    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
+
     plt.title("Power Requirements")
     plt.xlabel("SPL [dB]")
     plt.ylabel("Power [W]")
@@ -27,9 +29,9 @@ def driver_spl_report(df, drivers, SPL_target=108):
     plt.vlines(SPL_target, 0, 600, linestyles="--",
                label=f"Target {SPL_target} dB")
 
-    for name in drivers:
+    for name, color in zip(drivers, colors):
         driver = df[df["Name"] == name]
-        D_nominal = float(driver["Diameter_nominal"].iloc[0])
+        D_nominal = float(driver["D_nominal"].iloc[0])
         V_ref = float(driver["V_ref"].iloc[0])
         Z_ref = float(driver["Z_ref"].iloc[0])
         P_rms = float(driver["P_rms"].iloc[0])
@@ -51,10 +53,15 @@ def driver_spl_report(df, drivers, SPL_target=108):
         print(f"    {P_target=:.2f} W")
         print("")
 
-        desired = np.linspace(SPL_ref, SPL_rms, 1024)
-        required = power_for_target_spl(desired, SPL_ref, P_ref)
+        SPL_desired = np.linspace(SPL_ref, SPL_peak, 1024)
+        P_required = power_for_target_spl(SPL_desired, SPL_ref, P_ref)
+
         label = f"{name} {int(D_nominal)}\" {P_target:.1f} W"
-        plt.plot(desired, required, label=label)
+        plt.plot(SPL_desired[SPL_desired < SPL_rms],
+                 P_required[SPL_desired < SPL_rms], label=label, color=color)
+        plt.plot(SPL_desired[SPL_desired >= SPL_rms],
+                 P_required[SPL_desired >= SPL_rms], linestyle="--", color=color)
+        plt.scatter(SPL_rms, P_rms, color=color)
 
     plt.legend()
     plt.show()
@@ -72,20 +79,21 @@ def report(driver_db, SPL_target):
         # "Morel EM 1308",
         # "Morel ET 338",
         # "Morel ET 448",
+        # "Morel ST 1048",
         # "Mundorf AMT25CS2.1-R",
         # "Mundorf AMT29CM1.1-R",
         # "JBL Selenium D220Ti-8",
-        "Dayton Audio RS270-4",
-        "Dayton Audio RSS265HF-8",
+        # "Dayton Audio RS270-4",
+        # "Dayton Audio RSS265HF-8",
         "Dayton Audio RSS315HFA-8",
         "Dayton Audio RSS315HF-4",
         # "Dayton Audio RSS390HF-4",
         # "Dayton Audio RSS390HO-4",
         # "Dayton Audio RSS460HO-4",
         # "ScanSpeak Discovery 15M/4624G00",
-        # "ScanSpeak Discovery 30W/4558T00",
-        # "ScanSpeak Revelator 32W/4878T00",
-        # "ScanSpeak Revelator 32W/4878T01",
+        "ScanSpeak Discovery 30W/4558T00",
+        "ScanSpeak Revelator 32W/4878T00",
+        "ScanSpeak Revelator 32W/4878T01",
         # "Supravox 400 GMF",
         # "Volt Loudspeakers VM527",
         # "Volt Loudspeakers VM752",
