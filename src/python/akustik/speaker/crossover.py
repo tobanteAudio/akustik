@@ -23,8 +23,8 @@ def iir_crossover(x: np.ndarray, fs=None, fc=None, order=4):
 def linkwitz_riley_sos_filter(fc, fs, order=2):
     # Cascading the SOS filters
     # (equivalent to squaring the response of the Butterworth filter)
-    lp = signal.butter(order, Wn=fc, fs=fs, btype='low', output='sos')
-    hp = signal.butter(order, Wn=fc, fs=fs, btype='high', output='sos')
+    lp = signal.butter(order//2, Wn=fc, fs=fs, btype='low', output='sos')
+    hp = signal.butter(order//2, Wn=fc, fs=fs, btype='high', output='sos')
     return np.concatenate([lp, lp]), np.concatenate([hp, hp])
 
 
@@ -34,8 +34,9 @@ def linkwitz_riley_crossover(x: np.ndarray, fs=None, fc=None, order=4):
 
 
 def report():
-    fc = 10
+    fc = 500
     fs = 96000
+    order = 4
     dt = 1/fs
     n = fs
 
@@ -43,12 +44,8 @@ def report():
     sig[0] = 1.0
 
     lp, hp = fir_crossover(sig, fs, fc, taps=401)
-    lp, hp = iir_crossover(sig, fs, fc, order=4)
-    lp, hp = linkwitz_riley_crossover(sig, fs, fc, order=4)
-
-    # pad = int(fs/1000*10)
-    # lp = np.pad(lp, (pad, 0), "constant", constant_values=0.0)
-    # lp = lp[:n-pad]
+    lp, hp = iir_crossover(sig, fs, fc, order=order)
+    lp, hp = linkwitz_riley_crossover(sig, fs, fc, order=order)
 
     freqs = np.fft.rfftfreq(n, d=dt)
 
@@ -62,15 +59,15 @@ def report():
     mix_spectrum = np.fft.rfft(lp+hp, n=n)
 
     lp_amplitude = np.abs(lp_spectrum)
-    lp_phase = np.rad2deg(np.angle(lp_spectrum))
+    lp_phase = np.angle(lp_spectrum)
     lp_db = 20*np.log10(lp_amplitude+np.spacing(1))
 
     hp_amplitude = np.abs(hp_spectrum)
-    hp_phase = np.rad2deg(np.angle(hp_spectrum))
+    hp_phase = np.angle(hp_spectrum)
     hp_db = 20*np.log10(hp_amplitude+np.spacing(1))
 
     mix_amplitude = np.abs(mix_spectrum)
-    mix_phase = np.rad2deg(np.angle(mix_spectrum))
+    mix_phase = np.angle(mix_spectrum)
     mix_db = 20*np.log10(mix_amplitude+np.spacing(1))
 
     plt.rcParams.update(default_styles)
@@ -90,9 +87,9 @@ def report():
     # Amplitude
     dB: Axes = axs[1]
     dB.set_title("Amplitude")
-    dB.semilogx(freqs, mix_db, label="Mix")
     dB.semilogx(freqs, lp_db, label="LP")
     dB.semilogx(freqs, hp_db, label="HP")
+    dB.semilogx(freqs, mix_db, label="Mix")
     dB.vlines(fc, -100, 0, colors="red", label=f"Crossover {fc} Hz")
     dB.set_ylim((-80, 10))
     dB.set_xlim((1, 40_000))
@@ -103,9 +100,9 @@ def report():
     # Phase
     phase: Axes = axs[2]
     phase.set_title("Phase")
+    phase.semilogx(freqs, lp_phase, label="LP")
+    phase.semilogx(freqs, hp_phase, label="HP")
     phase.semilogx(freqs, mix_phase, label="Mix")
-    # phase.semilogx(freqs, lp_phase, label="LP")
-    # phase.semilogx(freqs, hp_phase, label="HP")
     # phase.vlines(fc, np.min(mix_phase), np.max(mix_phase),
     #            colors="red", label=f"Crossover {fc} Hz")
     # phase.set_ylim((-600, -100))
