@@ -1,19 +1,14 @@
 import click
 
-import akustik.room.decay as decay
-
 
 @click.group(help="Rooms.")
-@click.pass_context
-def room(ctx):
+def room():
     pass
 
 
 @room.command(help="Room modes.")
-@click.pass_context
-def modes(ctx):
-    if ctx.obj['VERBOSE']:
-        click.echo('Modes')
+def modes():
+    pass
 
 
 @room.command(help="Reverberation time.")
@@ -22,9 +17,9 @@ def modes(ctx):
 @click.option('--sim_dir', type=click.Path(exists=True))
 @click.option('--target', type=float, default=0.3)
 @click.argument('filenames', nargs=-1, type=click.Path(exists=True))
-@click.pass_context
-def rt60(ctx, filenames, fmax, fmin, sim_dir, target):
-    decay.report(
+def rt60(filenames, fmax, fmin, sim_dir, target):
+    from akustik.room.decay import main
+    main(
         filenames=filenames,
         fmin=fmin,
         fmax=fmax,

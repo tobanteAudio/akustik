@@ -46,8 +46,7 @@ def quantize_point(pos, dx, ret_err=True, scale=False):
         i_q = low if err_low < err_high else high
         if scale:
             return i_q*dx, err
-        else:
-            return i_q, err
+        return i_q, err
 
     x, y = pos
     xq, yq = quantize(x), quantize(y)
@@ -89,7 +88,7 @@ def add_diffusor(prime, well_width, max_depth, room, in_mask, X, Y, dx, c, verbo
         print(f"  error_d={derr_q/depth*100:.2f}%")
 
     print('--SIM-SETUP: Locate diffusor')
-    depths, g = primitive_root_diffuser(prime, g=None, depth=depth_q)
+    depths, _ = primitive_root_diffuser(prime, g=None, depth=depth_q)
     depths = quadratic_residue_diffuser(prime, depth_q)
     prime = depths.shape[0]
     for w in range(n):
@@ -132,7 +131,7 @@ def stencil_air(u0, u1, u2, mask):
 
 @nb.njit(parallel=True)
 def stencil_boundary_rigid(u0, u1, u2, bn_ixy, adj_bn):
-    Nx, Ny = u1.shape
+    _, Ny = u1.shape
     Nb = bn_ixy.size
     for i in nb.prange(Nb):
         ib = bn_ixy[i]
@@ -181,13 +180,9 @@ def main(
         sim_dir.mkdir(parents=True)
 
     room = (30, 30)
-    fmax = fmax  # Hz
     PPW = ppw  # points per wavelength at fmax
-    duration = duration  # seconds
     refl_coeff = 0.99  # reflection coefficient
 
-    apply_rigid = apply_rigid
-    apply_loss = apply_loss
     if apply_loss:
         assert apply_rigid
 
@@ -313,6 +308,7 @@ def main(
             args=[str(engine_exe), "-s", str(sim_dir / "sim.h5")],
             capture_output=True,
             text=True,
+            check=True,
         )
         print(result.stdout)
         print(result.returncode)
@@ -354,7 +350,3 @@ def main(
         h5f.create_dataset('out', data=np.float64(out))
 
         print(f"last: u0={u0[inx, iny]} u1={u1[inx, iny]} u2={u2[inx, iny]}")
-
-
-if __name__ == "__main__":
-    main()

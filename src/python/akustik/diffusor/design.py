@@ -1,4 +1,5 @@
-# import cv2
+import cv2
+import numpy as np
 
 from akustik.diffusor.qrd import quadratic_residue_diffuser
 
@@ -19,7 +20,15 @@ def diffusor_dimensions(fmin, fmax, c=343.0):
     return well_width, max_depth
 
 
-def fractal_diffusor(primes, long_well, long_depth, short_depth, repeats=1, c=343.0):
+def fractal_diffusor(
+    primes,
+    long_well,
+    long_depth,
+    short_depth,
+    repeats=1,
+    c=343.0,
+    render_image=False
+):
     long_fmin, long_fmax = diffusor_bandwidth(long_well, long_depth, c)
     long_wells = quadratic_residue_diffuser(primes[0], long_depth)
     print(f"long_well={long_well*100:.2f}cm")
@@ -49,22 +58,23 @@ def fractal_diffusor(primes, long_well, long_depth, short_depth, repeats=1, c=34
     print(dx)
     print(img_size)
 
-    # TODO: Reenable image via cv2
-    # img = np.zeros(img_size, dtype=np.uint8)
-    # for r in range(int(repeats)):
-    #     xo = int(long_well*primes[0]*r/dx)
-    #     for i in range(primes[0]):
-    #         p1 = (int(xo+i*(long_well/dx)), 0)
-    #         p2 = (int(p1[0]+long_well/dx), int(long_wells[i % primes[0]]/dx))
-    #         cv2.rectangle(img, p1, p2, (100, 100, 100), -1)
-    #         for j in range(primes[1]):
-    #             ps1 = (int(p1[0]+j*(short_well/dx)), p2[1])
-    #             ps2 = (int(ps1[0]+short_well/dx), p2[1] +
-    #                    int(short_wells[j % primes[1]]/dx))
-    #             cv2.rectangle(img, ps1, ps2, (255, 255, 255), -1)
+    if render_image:
+        img = np.zeros(img_size, dtype=np.uint8)
+        for r in range(int(repeats)):
+            xo = int(long_well*primes[0]*r/dx)
+            for i in range(primes[0]):
+                p1 = (int(xo+i*(long_well/dx)), 0)
+                p2 = (int(p1[0]+long_well/dx),
+                      int(long_wells[i % primes[0]]/dx))
+                cv2.rectangle(img, p1, p2, (100, 100, 100), -1)
+                for j in range(primes[1]):
+                    ps1 = (int(p1[0]+j*(short_well/dx)), p2[1])
+                    ps2 = (int(ps1[0]+short_well/dx), p2[1] +
+                           int(short_wells[j % primes[1]]/dx))
+                    cv2.rectangle(img, ps1, ps2, (255, 255, 255), -1)
 
-    # img = cv2.flip(img, 0)
-    # cv2.imwrite('fractal.png', img.astype(np.uint8))
+        img = cv2.flip(img, 0)
+        cv2.imwrite('fractal.png', img.astype(np.uint8))
 
 
 def main():

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 import numpy as np
-import scipy.signal as signal
+from scipy import signal
 
 from akustik.plot.style import default_styles
 
@@ -33,7 +33,7 @@ def linkwitz_riley_crossover(x: np.ndarray, fs=None, fc=None, order=4):
     return signal.sosfilt(lp, x), signal.sosfilt(hp, x)
 
 
-def report():
+def main():
     fc = 500
     fs = 96000
     order = 4
@@ -49,10 +49,10 @@ def report():
 
     freqs = np.fft.rfftfreq(n, d=dt)
 
-    sig_spectrum = np.fft.rfft(sig, n=n)
-    sig_amplitude = np.abs(sig_spectrum)
-    sig_phase = np.rad2deg(np.angle(sig_spectrum))
-    sig_db = 20*np.log10(sig_amplitude+np.spacing(1))
+    # sig_spectrum = np.fft.rfft(sig, n=n)
+    # sig_amplitude = np.abs(sig_spectrum)
+    # sig_phase = np.rad2deg(np.angle(sig_spectrum))
+    # sig_db = 20*np.log10(sig_amplitude+np.spacing(1))
 
     lp_spectrum = np.fft.rfft(lp, n=n)
     hp_spectrum = np.fft.rfft(hp, n=n)

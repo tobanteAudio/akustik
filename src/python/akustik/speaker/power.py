@@ -1,14 +1,23 @@
-import sys
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
 
-def max_sound_pressure(SPL_ref, P_rms, P_ref=1):
+def max_sound_pressure(SPL_ref, P_max, P_ref=1):
     """Maximum sound pressure level (SPL dB)
+
+    Parameters
+    ----------
+        SPL_ref (float) : Reference sensitivity of the speaker driver
+        P_max (float) : Maximum power the speaker can handle
+        P_ref (float) : Power used for sensitivity measurement
+
+    Returns
+    ----------
+        SPL_max (float) : Sound pressure level at P_max
     """
-    return SPL_ref + 10*np.log10(P_rms/P_ref)
+    SPL_max = SPL_ref + 10*np.log10(P_max/P_ref)
+    return SPL_max
 
 
 def power_for_target_spl(SPL_target, SPL_ref,  P_ref=1):
@@ -67,7 +76,7 @@ def driver_spl_report(df, drivers, SPL_target=108):
     plt.show()
 
 
-def report(driver_db, SPL_target):
+def main(driver_db, SPL_target):
     df = pd.read_csv(driver_db)
     drivers = [
         # "Alcone AC 15",

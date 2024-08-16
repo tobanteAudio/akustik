@@ -1,6 +1,5 @@
 import numpy as np
 import sympy as sp
-from sympy.abc import x, y, z
 
 
 def room_mode(L, W, H, m, n, p, c=343):

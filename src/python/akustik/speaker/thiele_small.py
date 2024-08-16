@@ -48,7 +48,7 @@ def total_q_factor(Qms, Qes):
     return Qts
 
 
-def report(driver_db, drivers):
+def main(driver_db, drivers):
     for name in drivers:
         df = pd.read_csv(driver_db)
         driver = df[df['Name'] == name]

@@ -36,7 +36,7 @@ Homepage = "https://github.com/tobanteAudio/akustik"
 Issues = "https://github.com/tobanteAudio/akustik/issues"
 
 [project.optional-dependencies]
-dev = ["conan>=2.6.0", "pre-commit>=3.8.0"]
+dev = ["conan>=2.6.0", "pre-commit>=3.8.0", "pylint>=3.2.6"]
 test = ["pytest>=8.3.2", "pytest-cov>=5.0.0"]
 
 [project.scripts]

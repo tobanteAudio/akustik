@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def report():
+def main():
     c = 343
     fs = 192000
 

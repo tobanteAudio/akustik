@@ -54,8 +54,7 @@ def ensure_absolute_path(paths):
     return paths
 
 
-def report(dats_dirs, fmin, fmax):
-    P_amp = 150
+def main(dats_dirs, fmin, fmax):
     dats_dirs = ensure_absolute_path(dats_dirs)
     data = {
         "name": [],
@@ -114,7 +113,7 @@ def report(dats_dirs, fmin, fmax):
         print(f"{f2=}")
 
     plt.rcParams.update(default_styles)
-    fig, axs = plt.subplots(2, 2)
+    _, axs = plt.subplots(2, 2)
     # fig.suptitle(name)
 
     def plot(ax: Axes, x, y):

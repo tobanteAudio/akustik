@@ -2,15 +2,13 @@ import click
 
 
 @click.group(help="Wave equation simulations.")
-@click.pass_context
-def wave(ctx):
+def wave():
     pass
 
 
 @wave.command(help="2D wave-equation report.")
 @click.option('--sim_dir', type=click.Path(exists=True))
-@click.pass_context
-def report2d(ctx, sim_dir):
+def report2d(sim_dir):
     from akustik.wave.report2d import main
     main(sim_dir)
 
