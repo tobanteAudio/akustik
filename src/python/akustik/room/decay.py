@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.ticker import ScalarFormatter
 import numpy as np
-from scipy import signal
 from scipy.io import wavfile
 
+from akustik.frequency.octave import iso_third_octave_bands, third_octave_filter
 from akustik.plot.style import default_styles
 
 
@@ -18,20 +18,6 @@ def _collect_wav_files(directory, pattern="*.wav"):
     return wav_files
 
 
-def _third_octave_filter(sig, fs, center):
-    factor = 2 ** (1/6)  # One-third octave factor
-    low = center / factor
-    high = center * factor
-    sos = signal.butter(4, [low, high], btype='band', fs=fs, output='sos')
-    return signal.sosfilt(sos, sig)
-
-
-def _energy_decay_curve(ir):
-    edc = np.cumsum(ir[::-1]**2)[::-1]
-    edc_db = 10 * np.log10(edc / np.max(edc))
-    return edc_db
-
-
 def _calculate_t60(edc_db, fs):
     t = np.arange(len(edc_db)) / fs
     edc_db -= np.max(edc_db)  # Normalize to 0 dB at the start
@@ -39,6 +25,12 @@ def _calculate_t60(edc_db, fs):
     end_idx = np.where(edc_db <= -35)[0][0]
     t60 = 2 * (t[end_idx] - t[start_idx])
     return t60
+
+
+def energy_decay_curve(ir):
+    edc = np.cumsum(ir[::-1]**2)[::-1]
+    edc_db = 10 * np.log10(edc / np.max(edc))
+    return edc_db
 
 
 def rt60_target(volume) -> float:
@@ -59,8 +51,7 @@ def decay_times_for_bands(files, centre_frequencies):
         t60_times = []
         print(f"---- {file.stem} ----")
         for fc in centre_frequencies:
-            filtered_ir = _third_octave_filter(ir, fs, fc)
-            edc_db = _energy_decay_curve(filtered_ir)
+            edc_db = energy_decay_curve(third_octave_filter(ir, fs, fc))
             t60 = _calculate_t60(edc_db, fs)
             t60_times.append(round(t60, 3))
             print(f"T60 at {fc} Hz: {t60:.2f} seconds")
@@ -71,17 +62,10 @@ def decay_times_for_bands(files, centre_frequencies):
 
 
 def third_octave_bands(fmin, fmax):
-    # ISO 1/3 octaves
-    centre_freqs = np.array([
-        20, 25, 31.5, 40, 50, 63, 80, 100, 125, 160,
-        200, 250, 315, 400, 500, 630, 800, 1000, 1250, 1600,
-        2000, 2500, 3150, 4000, 5000, 6300, 8000, 10000, 12500, 16000,
-        20000
-    ])
-
-    centre_freqs = centre_freqs[np.where(centre_freqs >= fmin)]
-    centre_freqs = centre_freqs[np.where(centre_freqs <= fmax)]
-    return centre_freqs
+    bands = iso_third_octave_bands()
+    bands = bands[np.where(bands >= fmin)]
+    bands = bands[np.where(bands <= fmax)]
+    return bands
 
 
 def plot_decay_times(
