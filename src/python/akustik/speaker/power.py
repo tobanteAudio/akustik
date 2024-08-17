@@ -53,19 +53,20 @@ def driver_spl_report(df, drivers, SPL_target=108):
         P_target = power_for_target_spl(SPL_target, SPL_ref, P_ref)
 
         print(f"- {name}:")
-        print(f"    {P_max=:.2f} W")
-        print(f"    {P_rms=:.2f} W")
+        print(f"    {Z_ref=:.2f} Ohm")
         print(f"    {P_ref=:.2f} W")
-        print(f"    {SPL_peak=:.2f} dB")
-        print(f"    {SPL_rms=:.2f} dB")
-        print(f"    {SPL_ref=:.2f} dB")
+        print(f"    {P_rms=:.2f} W")
+        print(f"    {P_max=:.2f} W")
         print(f"    {P_target=:.2f} W")
+        print(f"    {SPL_ref=:.2f} dB")
+        print(f"    {SPL_rms=:.2f} dB")
+        print(f"    {SPL_peak=:.2f} dB")
         print("")
 
         SPL_desired = np.linspace(SPL_ref, SPL_peak, 1024)
         P_required = power_for_target_spl(SPL_desired, SPL_ref, P_ref)
 
-        label = f"{name} {int(D_nominal)}\" {P_target:.1f} W"
+        label = f"{name} {int(np.nan_to_num(D_nominal))}\" {P_target:.1f} W"
         plt.plot(SPL_desired[SPL_desired < SPL_rms],
                  P_required[SPL_desired < SPL_rms], label=label, color=color)
         plt.plot(SPL_desired[SPL_desired >= SPL_rms],
@@ -86,7 +87,7 @@ def main(driver_db, SPL_target):
         # "Dayton Audio AMTPRO-4",
         # "Morel CAT 328-110",
         # "Morel EM 1308",
-        # "Morel ET 338",
+        "Morel ET 338",
         # "Morel ET 448",
         # "Morel ST 1048",
         # "Mundorf AMT25CS2.1-R",
@@ -100,11 +101,11 @@ def main(driver_db, SPL_target):
         # "Dayton Audio RSS390HO-4",
         # "Dayton Audio RSS460HO-4",
         # "ScanSpeak Discovery 15M/4624G00",
-        "ScanSpeak Discovery 30W/4558T00",
-        "ScanSpeak Revelator 32W/4878T00",
-        "ScanSpeak Revelator 32W/4878T01",
+        # "ScanSpeak Discovery 30W/4558T00",
+        # "ScanSpeak Revelator 32W/4878T00",
+        # "ScanSpeak Revelator 32W/4878T01",
         # "Supravox 400 GMF",
-        # "Volt Loudspeakers VM527",
+        "Volt Loudspeakers VM527",
         # "Volt Loudspeakers VM752",
         # "Volt Loudspeakers RV2501",
         # "Volt Loudspeakers RV3143",

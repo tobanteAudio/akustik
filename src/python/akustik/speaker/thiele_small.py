@@ -66,7 +66,7 @@ def main(driver_db, drivers):
         Vas = float(driver["Vas"].iloc[0])/1000
 
         # Zmax = 51
-        # f1, f2 = _estimate_f1_f2(fs, f2=62)
+        # f1, f2 = _estimate_f1_f2(fs, f2=450)
 
         fs_prime = np.sqrt(f1*f2)
         R0 = Zmax / Re
