@@ -13,6 +13,32 @@
 
 ### Psychoacoustics
 
+### Absorber
+
+#### TubeTrap
+
+- [ASC TubeTrap](https://www.acousticsciences.com/product/tubetrap-bass-trap)
+  - [US Patent: 4548292](https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/4548292?requestToken=eyJzdWIiOiIxNWQxODZmOS00OTU2LTQ3MjItOTgzYy0wNjI2Y2RhN2NjZDciLCJ2ZXIiOiJkNzU2ZWYzNC04ZDEyLTQ0NmQtYTAxMy02ZGY2ZmQzNjUyODciLCJleHAiOjB9)
+- [Bluetone Acoustics Tube BassTrap](https://www.btacoustics.com/tube-basstrap)
+- [HOFA BassTrap V2](https://hofa-akustik.de/en/modules/basstrap/)
+  - <https://recording.de/threads/hofa-basstrap.257370/>
+  - <https://gearspace.com/board/bass-traps-acoustic-panels-foam-etc/1400734-tube-traps-hofa-vs-t-akustik-vs-gik.html>
+  - <https://i.pinimg.com/550x/3f/28/0e/3f280e2b69fb913a7ccefd499046d323.jpg>
+- [GIK Acoustics Turbo Trap](https://gikacoustics.de/produkte/turbo-trap/)
+- [t.akustik Tube Trap WH](https://www.thomann.de/de/t.akustik_tube_trap_wh.htm)
+- **DIY:**
+  - [Johns Manville Pipe Insulation (used by Eric Valentine)](https://www.jm.com/en/mechanical/pipe-insulation/)
+  - [Stadur-Süd Dämmstoff-Produktions GmbH](https://stadur-sued.com/produkte/daemmstoffzuschnitte/rohrschalen/)
+  - [Isover U Protect Pipe Section Alu2](https://www.isover-technische-isolierung.de/produkte/u-protect-pipe-section-alu2)
+    - <https://www.isolier-fuchs.de/mineralwolle-rohrisolierung-isolierschale-60-mm?number=501640090.60-219>
+  - [Rockwool 800](https://www.rockwool.com/de/produkte/produktuebersicht/rockwool-800/)
+    - <https://isolierprofi.eu/rs800-219x50-mm-rockwool-rohrisolierung-alukaschiert--2651.html>
+    - <https://www.isoliermarkt.de/search?search=Rockwool+800>
+    - <https://daemmstoffshop.com/products/rohrisolierung-rockwool-rs800-steinwolle-alukaschiert-ab-89mm-meterware?variant=46490433978717>
+  - <https://www.rohrisolierung-direkt.de/rohrisolierung-alukaschiert/?srsltid=AfmBOooFFrtWN_4YzX0A33m7QamsbvVXi3ohocOHBNNquSejM90AJ1Sj>
+  - **Lid:**
+    - <https://www.cnc-holzwelt.de/>
+
 ## Monitor Speakers
 
 ### Brands
