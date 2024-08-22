@@ -59,7 +59,7 @@ Thiele-Small (T/S) parameters are a set of electromechanical parameters that def
 
 ## Example
 
-3-way mainfield with subwoofer
+**"MASP"** (Main Speaker) 3-way mainfield with subwoofer
 
 ### Speaker
 
@@ -78,6 +78,11 @@ Thiele-Small (T/S) parameters are a set of electromechanical parameters that def
 - Digital
   - Mono input
   - 4-way out
+  - <https://www.minidsp.com/products/usb-audio-interface/mchstreamer>
+  - <https://www.thomann.de/de/behringer_ada_8200_ultragain.htm>
+  - <https://www.thomann.de/de/arturia_audiofuse_x8_in.htm>
+  - <https://www.thomann.de/de/arturia_audiofuse_x8_out.htm>
+  - <https://www.thomann.de/de/rme_adi_2_4_pro_se.htm>
 
 ### Amplifier
 

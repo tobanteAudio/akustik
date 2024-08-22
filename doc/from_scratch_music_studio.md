@@ -36,6 +36,7 @@
     - <https://www.isoliermarkt.de/search?search=Rockwool+800>
     - <https://daemmstoffshop.com/products/rohrisolierung-rockwool-rs800-steinwolle-alukaschiert-ab-89mm-meterware?variant=46490433978717>
   - <https://www.rohrisolierung-direkt.de/rohrisolierung-alukaschiert/?srsltid=AfmBOooFFrtWN_4YzX0A33m7QamsbvVXi3ohocOHBNNquSejM90AJ1Sj>
+  - <https://www.manomano.de/p/maschendraht-maschendrahtzaun-volierendraht-kaninchendraht-drahtgitter-viereckgeflecht-gartenzaun-20m-drahtrolle-hoehe-100cm-maschenweite-12x12mm-galvanisiert-9525989>
   - **Lid:**
     - <https://www.cnc-holzwelt.de/>
 
