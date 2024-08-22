@@ -1,5 +1,7 @@
 import click
 
+from akustik.absorber.cli import absorber
+from akustik.anc.cli import anc
 from akustik.diffusor.cli import diffusor
 from akustik.room.cli import room
 from akustik.speaker.cli import speaker
@@ -14,6 +16,8 @@ def main(ctx, verbose):
     ctx.obj['VERBOSE'] = verbose
 
 
+main.add_command(absorber)
+main.add_command(anc)
 main.add_command(diffusor)
 main.add_command(room)
 main.add_command(speaker)
