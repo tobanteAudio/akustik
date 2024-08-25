@@ -21,10 +21,11 @@ def crossover():
 @speaker.command(help="Dayton Audio Test System.")
 @click.option('--fmin', default=10, show_default=True)
 @click.option('--fmax', default=30000, show_default=True)
+@click.option('--re', type=float, help="DC Resistance")
 @click.argument('dats_dirs', nargs=-1, type=click.Path(exists=True))
-def dats(dats_dirs, fmin, fmax):
+def dats(dats_dirs, fmin, fmax, re):
     from akustik.speaker.dats import main
-    main(dats_dirs, fmin, fmax)
+    main(dats_dirs, fmin, fmax, Re=re)
 
 
 @speaker.command(help="Power requirements.")
