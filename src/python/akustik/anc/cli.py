@@ -1,7 +1,6 @@
 import click
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.io.wavfile import write
 
 @click.group(help="Active noise cancellation.",invoke_without_command=True)
 def anc():

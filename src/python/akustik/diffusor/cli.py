@@ -6,12 +6,6 @@ def diffusor():
     pass
 
 
-@diffusor.command(help="Diffusor design.")
-def design():
-    from akustik.diffusor.design import main
-    main()
-
-
 @diffusor.command(help="Primitive root diffuser.")
 def prd():
     from akustik.diffusor.prd import main
