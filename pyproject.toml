@@ -30,6 +30,7 @@ dependencies = [
     "scipy>=1.14.0",
     "sympy>=1.13.1",
     "tqdm>=4.66.5",
+    "xlrd",
 ]
 
 [project.urls]
