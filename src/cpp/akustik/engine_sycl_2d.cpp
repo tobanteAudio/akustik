@@ -84,8 +84,8 @@ static auto kernelBoundaryLoss(
   u0[ib] = (current + lossFactor * K4 * prev) / (1 + lossFactor * K4);
 }
 
-auto EngineSYCL2D::operator()(Simulation2D const& sim
-) const -> stdex::mdarray<double, stdex::dextents<size_t, 2>> {
+auto EngineSYCL2D::operator()(Simulation2D const& sim) const
+    -> stdex::mdarray<double, stdex::dextents<size_t, 2>> {
 
   auto const Nx          = sim.Nx;
   auto const Ny          = sim.Ny;

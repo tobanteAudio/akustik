@@ -21,8 +21,8 @@ namespace akustik {
   return x * Ny + y;
 }
 
-auto EngineNative2D::operator()(Simulation2D const& sim
-) const -> stdex::mdarray<double, stdex::dextents<size_t, 2>> {
+auto EngineNative2D::operator()(Simulation2D const& sim) const
+    -> stdex::mdarray<double, stdex::dextents<size_t, 2>> {
 
   auto const Nx         = sim.Nx;
   auto const Ny         = sim.Ny;
