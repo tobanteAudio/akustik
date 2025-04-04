@@ -18,6 +18,8 @@
 ### Crossover
 
 - [Lunch with Paul: everything you wanted to know about crossovers](https://www.youtube.com/watch?v=-9KU4kAFExg)
+- [ChatGPT DeepResearch: Linux Audio Optimization Guide](https://chatgpt.com/c/67d91527-d5dc-8003-9142-e6a227f423f0)
+- <https://eclipseaudio.com/crossover-filter-design/>
 
 ## Driver
 
@@ -41,15 +43,29 @@ Thiele-Small (T/S) parameters are a set of electromechanical parameters that def
 
 - [Measuring Thiele/Small parameters](https://sbacoustics.com/wp-content/uploads/2021/01/Measuring-Thiele-Small-parameters.pdf)
 - [Wikipedia: Thiele-Small](https://en.wikipedia.org/wiki/Thiele/Small_parameters)
+- [Thiele Small parameters equations – How each one affects the others](https://audiojudgement.com/thiele-small-parameters-equations/)
+- [AES Recommended Practice Specification of Loudspeaker Components](https://diy-audio.narod.ru/litr/AES2-1984-r2003.pdf)
 
 ### Tweeter
 
 - [Lunch with Paul: all about tweeters](https://www.youtube.com/watch?v=_AJgl_c0O7I)
 
+### Horn
+
+- [ChatGPT DeepResearch: Radial Horn Design Guide](https://chatgpt.com/c/67d51695-636c-8003-9084-86c7474e76eb)
+- <https://www.lautsprechermanufaktur-heyder.de/lmh-horns/rtrak-hoerner>
+- <https://www.limmerhorns.de/%C3%BCbersicht/>
+- <https://audioxpress.com/article/Understanding-Horn-Directivity-Control>
+- <https://audiohorn.net/guide/apex-polar-map-measurement/>
+
 ### Subwoofer
 
 - [Axiom Audio - Multiple Subwoofers with Ian Colquhoun](https://www.youtube.com/watch?v=ayOXz26qm3I)
 - [Supravox](https://www.supravox.fr/en)
+
+### Bass Reflex
+
+- <https://jlaudio.zendesk.com/hc/en-us/articles/221068047-Enclosure-Ports>
 
 ### Passive Radiator
 
