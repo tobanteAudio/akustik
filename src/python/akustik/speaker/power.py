@@ -35,7 +35,7 @@ def driver_spl_report(df, drivers, SPL_target=108):
     plt.xlabel("SPL [dB]")
     plt.ylabel("Power [W]")
     plt.grid(which="minor", color='#222222', linestyle=':', linewidth=0.5)
-    plt.vlines(SPL_target, 0, 600, linestyles="--",
+    plt.vlines(SPL_target, 0, 400, linestyles="--",
                label=f"Target {SPL_target} dB")
 
     for name, color in zip(drivers, colors):
@@ -66,7 +66,7 @@ def driver_spl_report(df, drivers, SPL_target=108):
         SPL_desired = np.linspace(SPL_ref, SPL_peak, 1024)
         P_required = power_for_target_spl(SPL_desired, SPL_ref, P_ref)
 
-        label = f"{name} {int(np.nan_to_num(D_nominal))}\" {P_target:.1f} W"
+        label = f"{name} {np.nan_to_num(D_nominal):.1f}\" {P_target:.3f} W"
         plt.plot(SPL_desired[SPL_desired < SPL_rms],
                  P_required[SPL_desired < SPL_rms], label=label, color=color)
         plt.plot(SPL_desired[SPL_desired >= SPL_rms],
@@ -80,43 +80,58 @@ def driver_spl_report(df, drivers, SPL_target=108):
 def main(driver_db, SPL_target):
     df = pd.read_csv(driver_db)
     drivers = [
-        # "Alcone AC 15",
-        # "Alcone AC 8 HE",
-        # "AMT U60W1.1-C",
-        # "AMT U160W1.1-R",
-        # "Dayton Audio AMTHR-4",
+        # "B&C Speakers 10NW76",
+        # "Ciare 12.00SW",
+        # "Ciare 18.00SW",
         # "Dayton Audio AMTPRO-4",
+        # "Dayton Audio RSS265HF-8",
+        # "Dayton Audio RSS315HFA-8",
+        # "Dayton Audio RSS315HF-4",
+        # "Dayton Audio RSS315HO-4",
+        # "Dayton Audio RSS390HF-4",
+        # "Dayton Audio RSS390HO-4",
+        # "Dayton Audio RSS460HO-4",
         # "Morel CAT 328-110",
         # "Morel EM 1308",
         # "Morel ET 338",
         # "Morel ET 448",
         # "Morel ST 1048",
-        # "Mundorf AMT25CS2.1-R",
-        # "Mundorf AMT29CM1.1-R",
+        "Morel TSCT 1044",
+        # "Morel TiCW 1058Ft",
+        # "Morel UW 1058",
+        # "Morel UW 1258",
+        # "Mundorf AMT 25CS2.1-R",
+        # "Mundorf AMT 29CM1.1-R",
+        # "Mundorf AMT U160W1.1-R",
+        # "Mundorf AMT U60W1.1-C",
         # "JBL Selenium D220Ti-8",
-        # "Dayton Audio RSS265HF-8",
-        # "Dayton Audio RSS315HFA-8",
-        # "Dayton Audio RSS315HF-4",
-        # "Dayton Audio RSS315HO-4",
-        "Dayton Audio RSS390HF-4",
-        "Dayton Audio RSS390HO-4",
-        "Dayton Audio RSS460HO-4",
-        # "Radian 950NeoPB-8",
-        # "ScanSpeak Discovery 15M/4624G00",
-        # "ScanSpeak Discovery 30W/4558T00",
-        # "ScanSpeak Revelator 32W/4878T00",
-        # "ScanSpeak Revelator 32W/4878T01",
+        # "Radian 475PB",
+        # "Radian 745PB",
+        # "Radian 835PB",
+        # "Radian 951PB",
+        # "Radian 950PB",
+        # "SB Acoustics TW29DN-B",
+        # "SB Acoustics TW29BNWG-4",
+        # "SB Acoustics SB12MNRX2-25-4",
+        # "SB Acoustics SB34NRX75-6",
+        # "SB Acoustics SB34NRX75-8",
+        # "Scan-Speak 30W/4558T00",
+        "Scan-Speak 32W/4878T00",
+        "Scan-Speak 32W/4878T01",
+        # "Supravox 215 GMF",
         # "Supravox 285 GMF",
         # "Supravox 400 GMF",
         # "Supravox 400-2000 EXC",
         # "TAD TD-2002",
-        "TAD TL-1601b",
-        "TAD TL-1801",
+        # "TAD TD-4001",
+        # "TAD TL-1601b",
+        # "TAD TL-1801",
         # "Volt Loudspeakers VM527",
-        # "Volt Loudspeakers VM752",
+        "Volt Loudspeakers VM752",
         # "Volt Loudspeakers RV2501",
         # "Volt Loudspeakers RV3143",
         # "Volt Loudspeakers RV3863",
         # "Volt Loudspeakers RV4564",
+        # "Wavecor TW030WA21",
     ]
     driver_spl_report(df, drivers, SPL_target=SPL_target)
