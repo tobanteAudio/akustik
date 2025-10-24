@@ -19,6 +19,7 @@ def _axes_style(ax: Axes, fmin, fmax):
     ax.set_xlabel('Frequency [Hz]')
     ax.set_xlim((fmin, fmax))
     ax.grid(which='minor', color='#DDDDDD', linestyle=':', linewidth=0.5)
+    ax.grid(which='major', color='#AAAAAA', linestyle='-', linewidth=1.0)
     ax.minorticks_on()
     ax.legend()
 

@@ -52,6 +52,10 @@ def driver_spl_report(df, drivers, SPL_target=108):
         SPL_peak = max_sound_pressure(SPL_ref, P_max, P_ref)
         P_target = power_for_target_spl(SPL_target, SPL_ref, P_ref)
 
+        amp_gain_dB = 25.5
+        inV = np.sqrt(P_target*Z_ref)/(10**(amp_gain_dB/20))
+        indBu = 20*np.log10(inV/0.7746)
+
         print(f"- {name}:")
         print(f"    {Z_ref=:.2f} Ohm")
         print(f"    {P_ref=:.2f} W")
@@ -66,7 +70,7 @@ def driver_spl_report(df, drivers, SPL_target=108):
         SPL_desired = np.linspace(SPL_ref, SPL_peak, 1024)
         P_required = power_for_target_spl(SPL_desired, SPL_ref, P_ref)
 
-        label = f"{name} {np.nan_to_num(D_nominal):.1f}\" {P_target:.3f} W"
+        label = f"{name} {np.nan_to_num(D_nominal):.1f}\" {P_target:.3f} W ({indBu:.2f} dBu)"
         plt.plot(SPL_desired[SPL_desired < SPL_rms],
                  P_required[SPL_desired < SPL_rms], label=label, color=color)
         plt.plot(SPL_desired[SPL_desired >= SPL_rms],
@@ -88,8 +92,8 @@ def main(driver_db, SPL_target):
         # "Dayton Audio RSS315HFA-8",
         # "Dayton Audio RSS315HF-4",
         # "Dayton Audio RSS315HO-4",
-        # "Dayton Audio RSS390HF-4",
-        # "Dayton Audio RSS390HO-4",
+        "Dayton Audio RSS390HF-4",
+        "Dayton Audio RSS390HO-4",
         # "Dayton Audio RSS460HO-4",
         # "Morel CAT 328-110",
         # "Morel EM 1308",
@@ -116,8 +120,8 @@ def main(driver_db, SPL_target):
         # "SB Acoustics SB34NRX75-6",
         # "SB Acoustics SB34NRX75-8",
         # "Scan-Speak 30W/4558T00",
-        "Scan-Speak 32W/4878T00",
-        "Scan-Speak 32W/4878T01",
+        # "Scan-Speak 32W/4878T00",
+        # "Scan-Speak 32W/4878T01",
         # "Supravox 215 GMF",
         # "Supravox 285 GMF",
         # "Supravox 400 GMF",
